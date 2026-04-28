@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><script src="https://jsdelivr.net"></script></head>
+<body style="display:flex; height:100vh; margin:0;">
+    <textarea id="in" style="width:50%;" placeholder="输入 Markdown..."></textarea>
+    <div id="out" style="width:50%; padding:20px; overflow:auto;"></div>
+    <script>
+        document.getElementById('in').oninput = function() {
+            document.getElementById('out').innerHTML = marked.parse(this.value);
+        };
+    </script>
+</body>
+</html>

@@ -1,13 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head><script src="https://jsdelivr.net"></script></head>
-<body style="display:flex; height:100vh; margin:0;">
-    <textarea id="in" style="width:50%;" placeholder="输入 Markdown..."></textarea>
-    <div id="out" style="width:50%; padding:20px; overflow:auto;"></div>
+<head>
+    <meta charset="UTF-8">
+    <title>Markdown 实时预览</title>
+    <!-- 修复后的 marked.js 引用 -->
+    <script src="https://jsdelivr.net"></script>
+    <!-- 加入 GitHub 风格的样式库，让预览更漂亮 -->
+    <link rel="stylesheet" href="https://jsdelivr.net">
+    <style>
+        body { display: flex; height: 100vh; margin: 0; font-family: sans-serif; }
+        #in { 
+            width: 50%; border: none; border-right: 1px solid #ccc; 
+            padding: 20px; font-family: monospace; font-size: 16px; outline: none;
+            background: #f9f9f9; resize: none;
+        }
+        #out { width: 50%; padding: 40px; overflow: auto; }
+        /* 限制预览区图片的宽度 */
+        .markdown-body img { max-width: 100%; }
+    </style>
+</head>
+<body style="display:flex;">
+    <textarea id="in" placeholder="在此输入 Markdown 源码..."></textarea>
+    <!-- 添加 markdown-body 类名以应用 GitHub 样式 -->
+    <div id="out" class="markdown-body"></div>
+
     <script>
-        document.getElementById('in').oninput = function() {
-            document.getElementById('out').innerHTML = marked.parse(this.value);
+        const input = document.getElementById('in');
+        const output = document.getElementById('out');
+
+        input.oninput = function() {
+            // marked.parse 是最新版的标准调用方式
+            output.innerHTML = marked.parse(this.value);
         };
+
+        // 初始化演示内容
+        input.value = "# Hello Markdown\n\n- 实时预览\n- 简单易用\n\n> 试试在这里修改文字！";
+        output.innerHTML = marked.parse(input.value);
     </script>
 </body>
 </html>
